@@ -1,5 +1,7 @@
 function App() {
-   return <p>Tractian Tech challenge</p>;
+   return (
+      <p className="text-3xl font-bold underline">Tractian Tech challenge</p>
+   );
 }
 
 export default App;
