@@ -16,6 +16,22 @@ export function findItemById(id: string, items: Array<Item>): Item | null {
    return null;
 }
 
+export function selectItem(id: string, items: Array<Item>): Array<Item> {
+   return items.map((item) => {
+      const hasChildren = item.children.length > 0;
+      if (item.id === id) {
+         return {
+            ...item,
+            isOpened: hasChildren ? !item.isOpened : false,
+         };
+      }
+
+      // Recursively update children
+      const updatedChildren = selectItem(id, item.children);
+      return { ...item, children: updatedChildren };
+   });
+}
+
 export function filterItemsByName(
    items: Array<Item>,
    name: string,
@@ -24,7 +40,7 @@ export function filterItemsByName(
 
    items.forEach((item) => {
       if (item.name.toUpperCase().includes(name.toUpperCase())) {
-         filteredItems.push({ ...item, children: [] });
+         filteredItems.push({ ...item, children: [], foundByFilter: true });
          return;
       }
 
@@ -33,6 +49,7 @@ export function filterItemsByName(
          filteredItems.push({
             ...item,
             children: filteredChildren,
+            isOpened: true,
          });
       }
    });

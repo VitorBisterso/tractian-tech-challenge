@@ -11,10 +11,10 @@ export type SensorType = 'energy' | 'vibration';
 export interface Asset {
    id: string;
    name: string;
-   status?: AssetStatus | null | undefined | string;
+   status?: AssetStatus | null;
    parentId?: string | null;
    locationId?: string | null;
-   sensorType?: SensorType | null | undefined | string;
+   sensorType?: SensorType | null;
 }
 
 /*
@@ -35,4 +35,8 @@ export interface Item {
    sensorType?: SensorType | null;
    status?: AssetStatus | null;
    children: Array<Item>;
+
+   // styling
+   foundByFilter?: boolean;
+   isOpened?: boolean;
 }
