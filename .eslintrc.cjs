@@ -34,6 +34,8 @@ module.exports = {
       ],
       'react/jsx-indent': 'off',
       '@typescript-eslint/indent': 'off',
+      'react/jsx-indent-props': 'off',
+      'object-curly-newline': 'off',
       'react-refresh/only-export-components': [
          'warn',
          { allowConstantExport: true },

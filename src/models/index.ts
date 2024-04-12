@@ -1,7 +1,7 @@
 export interface Location {
    id: string;
    name: string;
-   parentId?: string; // caso tenha, é uma sub-localização
+   parentId?: string | null;
 }
 
 export type AssetStatus = 'alert' | 'operating';
@@ -11,10 +11,10 @@ export type SensorType = 'energy' | 'vibration';
 export interface Asset {
    id: string;
    name: string;
-   status: AssetStatus;
-   parentId?: string;
-   locationId?: string;
-   sensorType?: SensorType; // caso tenha, é um componente
+   status?: AssetStatus | null;
+   parentId?: string | null;
+   locationId?: string | null;
+   sensorType?: SensorType | null;
 }
 
 /*
@@ -25,3 +25,14 @@ export interface Asset {
       Tem locationId -> Asset com localização como pai
       Tem parentId -> Asset com outro asset como pai
 */
+
+export type ItemType = 'location' | 'asset' | 'component';
+
+export interface Item {
+   id: string;
+   name: string;
+   type: ItemType;
+   sensorType?: SensorType | null;
+   status?: AssetStatus | null;
+   children: Array<Item>;
+}

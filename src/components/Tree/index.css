@@ -1,0 +1,7 @@
+.btn-toggler {
+   background: none;
+}
+
+.item-toggler .active {
+   transform: rotate(45deg);
+}
