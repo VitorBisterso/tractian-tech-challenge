@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState } from 'react';
+import RenderIfVisible from 'react-render-if-visible';
 
 import { Item, ItemType } from '@/models';
 import locationIcon from '@/assets/img/location.png';
 import assetIcon from '@/assets/img/asset.png';
 import componentIcon from '@/assets/img/component.png';
-import './index.css';
 
 interface TreeProps {
    items: Array<Item>;
@@ -37,27 +37,30 @@ function TreeItem({ item }: TreeItemProps) {
    const hasChildren = (item.children ?? []).length > 0;
 
    return (
-      <li className="px-2 py-1">
-         <button
-            type="button"
-            className="flex btn-toggler"
-            onClick={() => setChildVisiblity((visibility) => !visibility)}
-         >
-            {hasChildren && (
-               <div
-                  className={`inline item-toggler mr-4 ml-[-22px] ${childVisibility ? 'active' : ''}`}
-               >
-                  v
+      <RenderIfVisible>
+         <li className="px-2 py-1">
+            <button
+               type="button"
+               className="flex btn-toggler"
+               onClick={() => setChildVisiblity((visibility) => !visibility)}
+            >
+               {hasChildren && (
+                  <div
+                     className="inline mr-4 ml-[-22px]"
+                     style={{ background: 'none' }}
+                  >
+                     {childVisibility ? '>' : 'v'}
+                  </div>
+               )}
+
+               <div className="flex flex-row gap-x-4">
+                  <img src={icons[item.type]} alt={`${item.type} icon`} />
+                  <p className="">{item.name}</p>
                </div>
-            )}
+            </button>
 
-            <div className="flex flex-row gap-x-4">
-               <img src={icons[item.type]} alt={`${item.type} icon`} />
-               <p className="">{item.name}</p>
-            </div>
-         </button>
-
-         {hasChildren && childVisibility && <Tree items={item.children!} />}
-      </li>
+            {hasChildren && childVisibility && <Tree items={item.children!} />}
+         </li>
+      </RenderIfVisible>
    );
 }

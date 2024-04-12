@@ -3,7 +3,7 @@
 import { Asset, Item, ItemType, Location } from '@/models';
 import { isComponent, isRootAsset } from './validators';
 import { sortAssets, sortLocations } from './sort';
-import { findItemById } from './helpers';
+import { filterItemsByName, findItemById } from './helpers';
 
 export function locationToItem(location: Location): Item {
    return {
@@ -74,7 +74,14 @@ export function mapAssetsToItems(
 export function mapTree(
    locations: Array<Location>,
    assets: Array<Asset>,
+   filter: string,
 ): Array<Item> {
    const locationData = mapLocationsToItems(locations);
-   return mapAssetsToItems(assets, locationData);
+   const tree = mapAssetsToItems(assets, locationData);
+
+   if (filter) {
+      return filterItemsByName(tree, filter);
+   }
+
+   return tree;
 }
