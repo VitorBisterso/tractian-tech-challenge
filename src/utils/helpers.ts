@@ -16,12 +16,16 @@ export function findItemById(id: string, items: Array<Item>): Item | null {
    return null;
 }
 
-export function filterItemsByName(items: Item[], name: string): Item[] {
-   const filteredItems: Item[] = [];
+export function filterItemsByName(
+   items: Array<Item>,
+   name: string,
+): Array<Item> {
+   const filteredItems: Array<Item> = [];
 
    items.forEach((item) => {
       if (item.name.toUpperCase().includes(name.toUpperCase())) {
-         filteredItems.push(item);
+         filteredItems.push({ ...item, children: [] });
+         return;
       }
 
       const filteredChildren = filterItemsByName(item.children, name);
