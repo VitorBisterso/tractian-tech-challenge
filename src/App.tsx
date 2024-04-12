@@ -1,12 +1,12 @@
-import Tree from '@/components/Tree';
-import { mapTree } from '@/utils/transform';
+import { useMemo } from 'react';
 
-import locations from '@/data/units/jaguar/locations.json';
-import assets from '@/data/units/jaguar/assets.json';
+import Tree from '@/components/Tree';
+import { mapTree } from '@/utils/mappers';
+import locations from '@/data/units/tobias/locations.json';
+import assets from '@/data/units/tobias/assets.json';
 
 function App() {
-   // @ts-expect-error status and sensorType
-   const data = mapTree(locations, assets);
+   const data = useMemo(() => mapTree(locations, assets), []);
 
    return <Tree items={data} />;
 }

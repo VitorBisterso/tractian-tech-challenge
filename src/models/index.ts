@@ -11,10 +11,10 @@ export type SensorType = 'energy' | 'vibration';
 export interface Asset {
    id: string;
    name: string;
-   status?: AssetStatus | null;
+   status?: AssetStatus | null | undefined | string;
    parentId?: string | null;
    locationId?: string | null;
-   sensorType?: SensorType | null;
+   sensorType?: SensorType | null | undefined | string;
 }
 
 /*
