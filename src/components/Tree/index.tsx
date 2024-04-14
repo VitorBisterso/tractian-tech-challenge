@@ -65,7 +65,7 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
       <li className="px-2 py-1">
          <button
             type="button"
-            className={`flex items-center btn-toggler ${isSelected && 'bg-sky-300 rounded'} ${item.id === selectedItem && 'border border-green-600'}`}
+            className={`flex items-center btn-toggler rounded ${isSelected && 'bg-sky-300'} ${item.id === selectedItem && 'border border-sky-900'} hover:bg-sky-200`}
             onClick={() => onSelectItem(item.id)}
          >
             {hasChildren && (
@@ -79,7 +79,9 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
 
             <div className="flex flex-row items-center gap-x-4 p-1">
                <img src={icons[item.type]} alt={`${item.type} icon`} />
-               <p className={`${isSelected && 'text-white'}`}>{item.name}</p>
+               <p className={`truncate ${isSelected && 'text-white'}`}>
+                  {item.name}
+               </p>
                {renderIcon(
                   item.sensorType as SensorType,
                   item.status as AssetStatus,

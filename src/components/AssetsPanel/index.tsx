@@ -54,11 +54,11 @@ export default function AssetsPanel({ locations, assets }: Props) {
    }
 
    return (
-      <>
+      <div className="flex flex-col">
          <div className="flex flex-col md:flex-row mb-2 justify-between items-center">
             <input
                type="text"
-               className="flex flex-1 border border-solid border-gray-400 rounded px-3 py-2"
+               className="flex flex-1 border border-solid border-gray-400 rounded px-3 py-2 md:max-w-[50%]"
                value={value}
                placeholder="Buscar Ativo ou Local"
                onChange={(e) => {
@@ -88,15 +88,22 @@ export default function AssetsPanel({ locations, assets }: Props) {
                />
             </div>
          </div>
-         {state.data.length > 0 ? (
-            <Tree
-               items={state.data}
-               selectedItem={state.selectedItem}
-               onSelectItem={(id) => onSelectItem(id)}
-            />
-         ) : (
-            <p>Nenhum resultado encontrado</p>
-         )}
-      </>
+         <div className="flex flex-col md:flex-row gap-x-3 justify-between">
+            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400 pl-3 pr-6 py-2 overflow-auto md:max-w-[50%]">
+               {state.data.length > 0 ? (
+                  <Tree
+                     items={state.data}
+                     selectedItem={state.selectedItem}
+                     onSelectItem={(id) => onSelectItem(id)}
+                  />
+               ) : (
+                  <p>Nenhum resultado encontrado</p>
+               )}
+            </div>
+            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400 px-3 py-2">
+               details panel
+            </div>
+         </div>
+      </div>
    );
 }
