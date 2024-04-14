@@ -17,7 +17,6 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-render-if-visible": "^2.1.1",
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {

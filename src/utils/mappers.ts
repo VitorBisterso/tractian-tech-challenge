@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-continue */
 import { Asset, Item, ItemType, Location } from '@/models';
+import { Filters } from '@/components/AssetsPanel/reducer';
 import { isComponent, isRootAsset } from './validators';
 import { sortAssets, sortLocations } from './sort';
-import { filterItemsByName, findItemById } from './helpers';
+import { filterItemsByName, filterItemsByTrait, findItemById } from './helpers';
 
 export function locationToItem(location: Location): Item {
    return {
@@ -74,13 +75,21 @@ export function mapAssetsToItems(
 export function mapTree(
    locations: Array<Location>,
    assets: Array<Asset>,
-   filter: string,
+   filters: Filters,
 ): Array<Item> {
    const locationData = mapLocationsToItems(locations);
-   const tree = mapAssetsToItems(assets, locationData);
+   let tree = mapAssetsToItems(assets, locationData);
 
-   if (filter) {
-      return filterItemsByName(tree, filter);
+   if (filters.text) {
+      tree = filterItemsByName(tree, filters.text);
+   }
+
+   if (filters.onlyCritical) {
+      tree = filterItemsByTrait(tree, 'status', 'alert');
+   }
+
+   if (filters.energySensors) {
+      tree = filterItemsByTrait(tree, 'sensorType', 'energy');
    }
 
    return tree;

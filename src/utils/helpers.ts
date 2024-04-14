@@ -56,3 +56,35 @@ export function filterItemsByName(
 
    return filteredItems;
 }
+
+type ValueOf<T> = T[keyof T];
+
+export function filterItemsByTrait(
+   items: Array<Item>,
+   trait: keyof Item,
+   traitValue: ValueOf<Item>,
+): Array<Item> {
+   const filteredItems: Array<Item> = [];
+
+   items.forEach((item) => {
+      if (item[trait] === traitValue) {
+         filteredItems.push({ ...item, children: [], foundByFilter: true });
+         return;
+      }
+
+      const filteredChildren = filterItemsByTrait(
+         item.children,
+         trait,
+         traitValue,
+      );
+      if (filteredChildren.length > 0) {
+         filteredItems.push({
+            ...item,
+            children: filteredChildren,
+            isOpened: true,
+         });
+      }
+   });
+
+   return filteredItems;
+}
