@@ -5,6 +5,7 @@ import assetIcon from '@/assets/img/asset.png';
 import componentIcon from '@/assets/img/component.png';
 import energyIcon from '@/assets/img/energy.png';
 import vibrationIcon from '@/assets/img/vibration.png';
+import arrowDownIcon from '@/assets/img/arrow-down.png';
 
 interface TreeProps {
    items: Array<Item>;
@@ -64,15 +65,15 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
       <li className="px-2 py-1">
          <button
             type="button"
-            className={`flex btn-toggler ${isSelected && 'bg-sky-300 rounded'} ${item.id === selectedItem && 'border-2 border-green-600'}`}
+            className={`flex items-center btn-toggler ${isSelected && 'bg-sky-300 rounded'} ${item.id === selectedItem && 'border border-green-600'}`}
             onClick={() => onSelectItem(item.id)}
          >
             {hasChildren && (
                <div
-                  className="inline mr-4 ml-[-22px]"
+                  className={`inline mr-4 ml-[-22px] ${item.isOpened && '-rotate-90'}`}
                   style={{ background: 'none' }}
                >
-                  {item.isOpened ? '>' : 'v'}
+                  <img src={arrowDownIcon} alt="toggle tree" />
                </div>
             )}
 

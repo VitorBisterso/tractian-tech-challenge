@@ -11,6 +11,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  max-width: 1920px;
+  margin: auto;
+}
+
 ul {
   list-style-type: none;
 }

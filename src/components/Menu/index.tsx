@@ -14,8 +14,8 @@ interface Props {
 
 export default function Menu({ items, activeItem }: Props) {
    return (
-      <div className="flex flex-row items-center justify-between bg-indigo-950 p-3">
-         <img src={logo} alt="company logo" />
+      <div className="flex flex-row items-center justify-center bg-indigo-950 p-3 md:justify-between">
+         <img src={logo} alt="company logo" className="hidden md:block" />
          <div className="flex flex-row items-center gap-x-4">
             {items.map((item) => {
                const isActive = item.value === activeItem;
@@ -24,7 +24,7 @@ export default function Menu({ items, activeItem }: Props) {
                      key={item.value}
                      type="button"
                      onClick={item.onClick}
-                     className={`${isActive && 'bg-blue-700'} flex flex-row items-center rounded-sm text-white gap-x-3 px-2 py-1`}
+                     className={`${isActive && 'bg-blue-700'} flex flex-row items-center rounded-sm text-white gap-x-3 px-2 py-1 hover:bg-blue-900`}
                   >
                      <img src={unitIcon} alt={`unit-${item.title}`} />
                      {item.title}

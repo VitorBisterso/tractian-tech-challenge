@@ -37,6 +37,7 @@ module.exports = {
       'react/jsx-indent-props': 'off',
       'object-curly-newline': 'off',
       curly: 'off',
+      'react/require-default-props': 'off',
       'react-refresh/only-export-components': [
          'warn',
          { allowConstantExport: true },

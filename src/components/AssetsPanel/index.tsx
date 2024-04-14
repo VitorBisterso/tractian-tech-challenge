@@ -5,7 +5,10 @@ import Tree from '@/components/Tree';
 import { mapTree } from '@/utils/mappers';
 import { Asset, Location } from '@/models';
 import { selectItem } from '@/utils/helpers';
+import energyIcon from '@/assets/img/energy-outline.png';
+import criticalIcon from '@/assets/img/critical.png';
 import { Action, ReducerAction, TreeState, reducer } from './reducer';
+import FilterButton from '../FilterButton';
 
 interface Props {
    locations: Array<Location>;
@@ -52,39 +55,38 @@ export default function AssetsPanel({ locations, assets }: Props) {
 
    return (
       <>
-         <div className="flex flex-row">
+         <div className="flex flex-col md:flex-row mb-2 justify-between items-center">
             <input
                type="text"
-               className="border-2 border-solid border-stone-800 rounded p-1"
+               className="flex flex-1 border border-solid border-gray-400 rounded px-3 py-2"
                value={value}
+               placeholder="Buscar Ativo ou Local"
                onChange={(e) => {
                   setValue(e.target.value);
                }}
             />
-            <button
-               className="px-1 py-3 border-2 border-solid border-stone-800 rounded"
-               type="button"
-               onClick={() => dispatch({ type: Action.TOGGLE_SENSORS })}
-            >
-               Sensor de energia
-            </button>
-            <button
-               className="px-1 py-3 border-2 border-solid border-stone-800 rounded"
-               type="button"
-               onClick={() => dispatch({ type: Action.TOGGLE_CRITICAL })}
-            >
-               Crítico
-            </button>
-            <button
-               className="px-1 py-3 border-2 border-solid border-stone-800 rounded"
-               type="button"
-               onClick={() => {
-                  setValue('');
-                  dispatch({ type: Action.CLEAR_FILTERS });
-               }}
-            >
-               Limpar filtros
-            </button>
+
+            <div className="flex flex-1 flex-row items-center gap-x-2 justify-end">
+               <FilterButton
+                  title="Sensor de energia"
+                  onClick={() => dispatch({ type: Action.TOGGLE_SENSORS })}
+                  icon={energyIcon}
+                  active={state.filters.energySensors}
+               />
+               <FilterButton
+                  title="Crítico"
+                  onClick={() => dispatch({ type: Action.TOGGLE_CRITICAL })}
+                  icon={criticalIcon}
+                  active={state.filters.onlyCritical}
+               />
+               <FilterButton
+                  title="Limpar filtros"
+                  onClick={() => {
+                     setValue('');
+                     dispatch({ type: Action.CLEAR_FILTERS });
+                  }}
+               />
+            </div>
          </div>
          {state.data.length > 0 ? (
             <Tree
