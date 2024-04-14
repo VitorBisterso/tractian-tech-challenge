@@ -40,3 +40,6 @@ export interface Item {
    foundByFilter?: boolean;
    isOpened?: boolean;
 }
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export type UNIT_TYPE = 'apex' | 'tobias' | 'jaguar';

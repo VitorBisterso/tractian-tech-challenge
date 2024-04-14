@@ -1,9 +1,21 @@
+import { useMemo, useState } from 'react';
+
+import Menu from '@/components/Menu';
 import AssetsPanel from '@/components/AssetsPanel';
-import locations from '@/data/units/apex/locations.json';
-import assets from '@/data/units/apex/assets.json';
+import { getMenuItems, unitsData } from '@/utils/units';
+import { UNIT_TYPE } from '@/models';
 
 function App() {
-   return <AssetsPanel locations={locations} assets={assets} />;
+   const [activeMenu, setActiveMenu] = useState<UNIT_TYPE>('apex');
+   const menuItems = useMemo(() => getMenuItems(setActiveMenu), []);
+
+   const { locations, assets } = unitsData[activeMenu];
+   return (
+      <>
+         <Menu items={menuItems} activeItem={activeMenu} />
+         <AssetsPanel locations={locations} assets={assets} />
+      </>
+   );
 }
 
 export default App;
