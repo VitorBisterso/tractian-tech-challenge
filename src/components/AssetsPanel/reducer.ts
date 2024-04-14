@@ -22,7 +22,7 @@ export interface Filters {
 
 export interface TreeState {
    data: Array<Item>;
-   selectedItem: string;
+   selectedItem: Item;
    filters: Filters;
 }
 

@@ -3,20 +3,19 @@ import { AssetStatus, Item, ItemType, SensorType } from '@/models';
 import locationIcon from '@/assets/img/location.png';
 import assetIcon from '@/assets/img/asset.png';
 import componentIcon from '@/assets/img/component.png';
-import energyIcon from '@/assets/img/energy.png';
-import vibrationIcon from '@/assets/img/vibration.png';
 import arrowDownIcon from '@/assets/img/arrow-down.png';
+import AssetIcon from '../AssetIcons';
 
 interface TreeProps {
    items: Array<Item>;
-   selectedItem: string;
-   onSelectItem: (id: string) => void;
+   selectedItem: Item;
+   onSelectItem: (item: Item) => void;
 }
 
 interface TreeItemProps {
    item: Item;
-   selectedItem: string;
-   onSelectItem: (id: string) => void;
+   selectedItem: Item;
+   onSelectItem: (item: Item) => void;
 }
 
 const icons: Record<ItemType, string> = {
@@ -43,30 +42,13 @@ export default function Tree({ items, selectedItem, onSelectItem }: TreeProps) {
 function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
    const hasChildren = (item.children ?? []).length > 0;
 
-   function renderIcon(sensorType?: SensorType, assetStatus?: AssetStatus) {
-      if (!sensorType) return null;
-
-      return (
-         <>
-            <img
-               src={sensorType === 'energy' ? energyIcon : vibrationIcon}
-               alt="energy-sensor-icon"
-               height="100%"
-            />
-            <div
-               className={`w-2 h-2 rounded-full ${assetStatus === 'alert' ? 'bg-red-600' : 'bg-green-500'}`}
-            />
-         </>
-      );
-   }
-
-   const isSelected = item.id === selectedItem || item.foundByFilter;
+   const isSelected = item.id === selectedItem.id || item.foundByFilter;
    return (
       <li className="px-2 py-1">
          <button
             type="button"
-            className={`flex items-center btn-toggler rounded ${isSelected && 'bg-sky-300'} ${item.id === selectedItem && 'border border-sky-900'} hover:bg-sky-200`}
-            onClick={() => onSelectItem(item.id)}
+            className={`flex items-center btn-toggler rounded ${isSelected && 'bg-sky-300'} ${item.id === selectedItem.id && 'border border-sky-900'} hover:bg-sky-200`}
+            onClick={() => onSelectItem(item)}
          >
             {hasChildren && (
                <div
@@ -82,10 +64,10 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
                <p className={`truncate ${isSelected && 'text-white'}`}>
                   {item.name}
                </p>
-               {renderIcon(
-                  item.sensorType as SensorType,
-                  item.status as AssetStatus,
-               )}
+               <AssetIcon
+                  sensorType={item.sensorType as SensorType}
+                  assetStatus={item.status as AssetStatus}
+               />
             </div>
          </button>
 

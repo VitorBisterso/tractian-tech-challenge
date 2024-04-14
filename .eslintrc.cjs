@@ -38,6 +38,7 @@ module.exports = {
       'object-curly-newline': 'off',
       curly: 'off',
       'react/require-default-props': 'off',
+      'nonblock-statement-body-position': 'off',
       'react-refresh/only-export-components': [
          'warn',
          { allowConstantExport: true },

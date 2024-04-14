@@ -3,12 +3,14 @@ import { useDebounce } from 'use-debounce';
 
 import Tree from '@/components/Tree';
 import { mapTree } from '@/utils/mappers';
-import { Asset, Location } from '@/models';
+import { Asset, Item, Location } from '@/models';
 import { selectItem } from '@/utils/helpers';
 import energyIcon from '@/assets/img/energy-outline.png';
 import criticalIcon from '@/assets/img/critical.png';
 import { Action, ReducerAction, TreeState, reducer } from './reducer';
 import FilterButton from '../FilterButton';
+import SearchInput from '../SearchInput';
+import DetailsPanel from '../DetailsPanel';
 
 interface Props {
    locations: Array<Location>;
@@ -17,7 +19,7 @@ interface Props {
 
 const initialState: TreeState = {
    data: [],
-   selectedItem: '',
+   selectedItem: {} as Item,
    filters: { text: '', energySensors: false, onlyCritical: false },
 };
 
@@ -43,10 +45,10 @@ export default function AssetsPanel({ locations, assets }: Props) {
       });
    }, [textFilter, state.filters, locations, assets]);
 
-   function onSelectItem(id: string) {
-      dispatch({ type: Action.SELECT_ITEM, payload: id });
+   function onSelectItem(item: Item) {
+      dispatch({ type: Action.SELECT_ITEM, payload: item });
 
-      const newData = selectItem(id, state.data);
+      const newData = selectItem(item.id, state.data);
       dispatch({
          type: Action.SET_DATA,
          payload: newData,
@@ -56,15 +58,7 @@ export default function AssetsPanel({ locations, assets }: Props) {
    return (
       <div className="flex flex-col">
          <div className="flex flex-col md:flex-row mb-2 justify-between items-center">
-            <input
-               type="text"
-               className="flex flex-1 border border-solid border-gray-400 rounded px-3 py-2 md:max-w-[50%]"
-               value={value}
-               placeholder="Buscar Ativo ou Local"
-               onChange={(e) => {
-                  setValue(e.target.value);
-               }}
-            />
+            <SearchInput value={value} setValue={setValue} />
 
             <div className="flex flex-1 flex-row items-center gap-x-2 justify-end">
                <FilterButton
@@ -89,19 +83,19 @@ export default function AssetsPanel({ locations, assets }: Props) {
             </div>
          </div>
          <div className="flex flex-col md:flex-row gap-x-3 justify-between">
-            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400 pl-3 pr-6 py-2 overflow-auto md:max-w-[50%]">
+            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400 pl-3 pr-6 py-2 overflow-auto md:max-w-[40%] max-h-screen">
                {state.data.length > 0 ? (
                   <Tree
                      items={state.data}
                      selectedItem={state.selectedItem}
-                     onSelectItem={(id) => onSelectItem(id)}
+                     onSelectItem={(item) => onSelectItem(item)}
                   />
                ) : (
                   <p>Nenhum resultado encontrado</p>
                )}
             </div>
-            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400 px-3 py-2">
-               details panel
+            <div className="flex flex-1 bg-white rounded-sm border border-solid border-gray-400">
+               <DetailsPanel item={state.selectedItem} />
             </div>
          </div>
       </div>
