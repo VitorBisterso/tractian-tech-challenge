@@ -7,6 +7,7 @@ const config = {
    collectCoverageFrom: [
       'src/**/*.{js,jsx,ts,tsx}',
       '!src/**/*.d.ts',
+      '!src/main.tsx',
       '!src/models/**/*.ts',
       '!src/tests/**/*.ts',
       '!__mocks__/',
