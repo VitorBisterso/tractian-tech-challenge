@@ -12,7 +12,7 @@ import FilterButton from '../FilterButton';
 import SearchInput from '../SearchInput';
 import DetailsPanel from '../DetailsPanel';
 
-interface Props {
+export interface AssetsPanelProps {
    locations: Array<Location>;
    assets: Array<Asset>;
 }
@@ -23,7 +23,7 @@ const initialState: TreeState = {
    filters: { text: '', energySensors: false, onlyCritical: false },
 };
 
-export default function AssetsPanel({ locations, assets }: Props) {
+export default function AssetsPanel({ locations, assets }: AssetsPanelProps) {
    const [state, dispatch] = useReducer<Reducer<TreeState, ReducerAction>>(
       reducer,
       initialState,

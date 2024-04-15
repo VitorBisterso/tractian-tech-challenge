@@ -61,7 +61,10 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
 
             <div className="flex flex-row items-center gap-x-4 p-1">
                <img src={icons[item.type]} alt={`${item.type} icon`} />
-               <p className={`truncate ${isSelected && 'text-white'}`}>
+               <p
+                  className={`truncate ${isSelected && 'text-white'}`}
+                  data-testid={item.name}
+               >
                   {item.name}
                </p>
                <AssetIcon

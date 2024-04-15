@@ -8,6 +8,7 @@ const config = {
       'src/**/*.{js,jsx,ts,tsx}',
       '!src/**/*.d.ts',
       '!src/models/**/*.ts',
+      '!src/tests/**/*.ts',
       '!__mocks__/',
    ],
    coverageDirectory: 'coverage',
