@@ -12,7 +12,7 @@ describe('AssetsPanel', () => {
       jest.useFakeTimers();
    });
 
-   it('Should filter for a child in the tree by its name', async () => {
+   it('Should filter for a child in the tree by its name and select the item', async () => {
       const locations = mockLocations();
       const assets = mockAssets();
 
@@ -31,6 +31,10 @@ describe('AssetsPanel', () => {
 
       const item = screen.getByTestId(locationName);
       expect(item).toBeVisible();
+
+      await act(async () => {
+         fireEvent.click(item);
+      });
    });
 
    it('Should filter for a child in the tree by clicking the energy filter button', async () => {

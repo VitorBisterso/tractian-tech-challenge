@@ -15,6 +15,7 @@ describe('SearchInput', () => {
 
       const newValue = faker.lorem.sentence(3);
       const input = screen.getByRole('textbox');
+      fireEvent.focus(input);
       fireEvent.change(input, { target: { value: newValue } });
 
       expect(setValue).toHaveBeenCalledWith(newValue);
