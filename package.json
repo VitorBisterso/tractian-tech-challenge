@@ -11,7 +11,7 @@
     "prepare": "husky",
     "postinstall": "husky install",
     "precommit": "npm run lint && npm run test:coverage",
-    "test": "jest --maxWorkers=50%",
+    "test": "jest --maxWorkers=50% --coverage=false",
     "test:coverage": "jest --maxWorkers=50% --coverage --silent"
   },
   "dependencies": {
