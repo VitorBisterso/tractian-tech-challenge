@@ -11,6 +11,7 @@ import {
    findItemById,
    selectItem,
 } from '../helpers';
+import { mapTree } from '../mappers';
 
 describe('Validators', () => {
    describe('isComponent', () => {
@@ -322,6 +323,82 @@ describe('Helpers', () => {
          const result = filterItemsByTrait(newTree, 'status', 'operating');
 
          expect(JSON.stringify(result)).toBe(JSON.stringify([]));
+      });
+   });
+});
+
+describe('Mappers', () => {
+   describe('mapTree', () => {
+      it('Should gather locations and assets into a single tree', () => {
+         const locations: Array<Location> = [
+            {
+               id: 'L2',
+               name: 'Location 2',
+               parentId: 'L1',
+            },
+            {
+               id: 'L1',
+               name: 'Location 1',
+               parentId: null,
+            },
+         ];
+
+         const assets: Array<Asset> = [
+            {
+               id: 'C1',
+               name: 'Component 1',
+               parentId: 'A1',
+               sensorType: 'energy',
+               status: 'alert',
+            },
+            {
+               id: 'A1',
+               name: 'Asset 1',
+               locationId: 'L2',
+            },
+         ];
+
+         const expectedTree: Array<Item> = [
+            {
+               id: 'L1',
+               name: 'Location 1',
+               type: 'location',
+               children: [
+                  {
+                     id: 'L2',
+                     name: 'Location 2',
+                     type: 'location',
+                     children: [
+                        {
+                           id: 'A1',
+                           name: 'Asset 1',
+                           sensorType: undefined,
+                           status: undefined,
+                           type: 'asset',
+                           children: [
+                              {
+                                 id: 'C1',
+                                 name: 'Component 1',
+                                 type: 'component',
+                                 children: [],
+                                 sensorType: 'energy',
+                                 status: 'alert',
+                              },
+                           ],
+                        },
+                     ],
+                  },
+               ],
+            },
+         ];
+
+         const result = mapTree(locations, assets, {
+            text: '',
+            energySensors: false,
+            onlyCritical: false,
+         });
+
+         expect(result[0]).toStrictEqual(expectedTree[0]);
       });
    });
 });
