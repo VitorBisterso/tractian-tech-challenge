@@ -7,12 +7,12 @@ export interface MenuItem {
    onClick: () => void;
 }
 
-interface Props {
+export interface MenuProps {
    items: Array<MenuItem>;
    activeItem: string;
 }
 
-export default function Menu({ items, activeItem }: Props) {
+export default function Menu({ items, activeItem }: MenuProps) {
    return (
       <div className="flex flex-row items-center justify-center bg-indigo-950 p-3 md:justify-between">
          <img src={logo} alt="company logo" className="hidden md:block" />
