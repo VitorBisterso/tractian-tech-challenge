@@ -7,5 +7,6 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [{ find: "@", replacement: resolve(__dirname, "./src") }]
-  }
+  },
+  base: '/tractian-tech-challenge'
 })
