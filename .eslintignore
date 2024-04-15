@@ -2,4 +2,5 @@ vite.config.ts
 tailwing.config.js
 postcss.config.js
 jest.config.cjs
+setup-jest.js
 __mocks__

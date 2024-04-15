@@ -7,6 +7,7 @@ const config = {
    collectCoverageFrom: [
       'src/**/*.{js,jsx,ts,tsx}',
       '!src/**/*.d.ts',
+      '!src/models/**/*.ts',
       '!__mocks__/',
    ],
    coverageDirectory: 'coverage',
@@ -24,6 +25,7 @@ const config = {
       '\\.(css|sass)$': '<rootDir>/__mocks__/styleMock.js',
       '@/(.*)': '<rootDir>/src/$1',
    },
+   setupFilesAfterEnv: ['<rootDir>/setup-jest.js'],
 };
 
 module.exports = config;
