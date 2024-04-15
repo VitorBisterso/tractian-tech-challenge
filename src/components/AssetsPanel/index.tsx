@@ -57,10 +57,10 @@ export default function AssetsPanel({ locations, assets }: AssetsPanelProps) {
 
    return (
       <div className="flex flex-col">
-         <div className="flex flex-col md:flex-row mb-2 justify-between items-center">
+         <div className="flex flex-col sm:flex-row mb-2 justify-between items-center">
             <SearchInput value={value} setValue={setValue} />
 
-            <div className="flex flex-1 flex-row items-center gap-x-2 justify-end">
+            <div className="flex flex-1 flex-col sm:flex-row sm:items-center gap-x-2 mt-2 sm:mt-0 justify-end">
                <FilterButton
                   title="Sensor de energia"
                   onClick={() => dispatch({ type: Action.TOGGLE_SENSORS })}

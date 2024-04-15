@@ -114,15 +114,15 @@ export default function DetailsPanel({ item }: Props) {
                assetStatus={item.status as AssetStatus}
             />
          </div>
-         <div className="flex flex-row items-center px-5 py-2 gap-x-7">
+         <div className="flex flex-col md:flex-row items-center px-5 py-2 gap-x-7">
             <img
                src={getImageSrc()}
-               className="object-cover max-w-[335px] max-h-[230px]"
+               className="object-cover max-w-[50%] max-h-[50%] md:max-w-[335px] md:max-h-[230px]"
                alt={item.name}
             />
             <div className="flex flex-col">{renderFirstDetails()}</div>
          </div>
-         <div className="flex flex-row px-5 gap-x-[35%] mt-5 pt-3 border-t border-solid border-gray-200">
+         <div className="flex flex-col min-[350px]:flex-row px-5 gap-x-[35%] mt-5 pt-3 border-t border-solid border-gray-200">
             {renderOtherDetails()}
          </div>
       </div>

@@ -18,7 +18,7 @@ export default function FilterButton({
          onClick={onClick}
       >
          {icon && <img src={icon} alt={title} />}
-         {title}
+         <p className="truncate">{title}</p>
       </button>
    );
 }
