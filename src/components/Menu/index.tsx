@@ -24,7 +24,7 @@ export default function Menu({ items, activeItem }: Props) {
                      key={item.value}
                      type="button"
                      onClick={item.onClick}
-                     className={`${isActive && 'bg-blue-700'} flex flex-row items-center rounded-sm text-white gap-x-3 px-2 py-1 hover:bg-blue-900`}
+                     className={`${isActive && 'bg-blue-700'} flex flex-row items-center rounded-sm text-white gap-x-3 px-2 py-1 hover:bg-blue-900 transition-all`}
                   >
                      <img src={unitIcon} alt={`unit-${item.title}`} />
                      {item.title}

@@ -47,7 +47,7 @@ function TreeItem({ item, selectedItem, onSelectItem }: TreeItemProps) {
       <li className="px-2 py-1">
          <button
             type="button"
-            className={`flex items-center btn-toggler rounded ${isSelected && 'bg-sky-300'} ${item.id === selectedItem.id && 'border border-sky-900'} hover:bg-sky-200`}
+            className={`flex items-center btn-toggler rounded ${isSelected && 'bg-sky-300'} ${item.id === selectedItem.id && 'border border-sky-900'} hover:bg-sky-200 transition-all`}
             onClick={() => onSelectItem(item)}
          >
             {hasChildren && (
